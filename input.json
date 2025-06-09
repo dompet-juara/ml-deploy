@@ -1,17 +1,17 @@
 {
   "Gaji": 5000000,
-  "Tabungan_Lama": 10000000,
+  "Tabungan Lama": 10000000,
   "Investasi": 5000000,
-  "Pemasukan_Lainnya": 500000,
-  "Bahan_Pokok": 1500000,
-  "Protein_Gizi": 700000,
-  "Tempat_Tinggal": 2000000,
+  "Pemasukan Lainnya": 500000,
+  "Bahan Pokok": 1500000,
+  "Protein & Gizi Tambahan": 700000,
+  "Tempat Tinggal": 2000000,
   "Sandang": 300000,
-  "Konsumsi_Praktis": 400000,
-  "Barang_Jasa_Sekunder": 600000,
-  "Pengeluaran_Tidak_Esensial": 200000,
+  "Konsumsi Praktis": 400000,
+  "Barang & Jasa Sekunder": 600000,
+  "Pengeluaran Tidak Esensial": 200000,
   "Pajak": 100000,
   "Asuransi": 250000,
-  "Sosial_Budaya": 150000,
-  "Tabungan_Investasi": 1000000
+  "Sosial & Budaya": 150000,
+  "Tabungan / Investasi": 1000000
 }
