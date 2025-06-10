@@ -53,7 +53,7 @@ The API accepts the following financial data fields:
 
 1. **Clone the repository**
    ```bash
-   git clone <your-repository-url>
+   git clone https://github.com/dompet-juara/ml-deploy.git
    cd financial-behavior-prediction-api
    ```
 
