@@ -1,5 +1,4 @@
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import JSONResponse
 import numpy as np
 import tensorflow as tf
 import pickle
@@ -8,23 +7,21 @@ import logging
 from typing import Dict
 import uvicorn
 
-# Setup logging
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title="Financial Behavior Prediction API",
     description="API untuk prediksi perilaku keuangan menggunakan machine learning",
-    version="1.0.0"
+    version="1.0.0",
 )
 
-# Load model dan preprocessors
 try:
     model = tf.keras.models.load_model("model/best_model.h5")
-    
+
     with open("model/scaler.pkl", "rb") as f:
         scaler = pickle.load(f)
-    
+
     with open("model/label_encoder.pkl", "rb") as f:
         label_encoder = pickle.load(f)
 except Exception as e:
@@ -32,36 +29,99 @@ except Exception as e:
     raise
 
 feature_names = [
-    "Gaji", "Tabungan_Lama", "Investasi", "Pemasukan_Lainnya", "Bahan_Pokok",
-    "Protein_Gizi", "Tempat_Tinggal", "Sandang", "Konsumsi_Praktis", "Barang_Jasa_Sekunder",
-    "Pengeluaran_Tidak_Esensial", "Pajak", "Asuransi", "Sosial_Budaya", "Tabungan_Investasi"
+    "Gaji",
+    "Tabungan_Lama",
+    "Investasi",
+    "Pemasukan_Lainnya",
+    "Bahan_Pokok",
+    "Protein_Gizi",
+    "Tempat_Tinggal",
+    "Sandang",
+    "Konsumsi_Praktis",
+    "Barang_Jasa_Sekunder",
+    "Pengeluaran_Tidak_Esensial",
+    "Pajak",
+    "Asuransi",
+    "Sosial_Budaya",
+    "Tabungan_Investasi",
 ]
+
 
 class FinanceInput(BaseModel):
     """Model input untuk prediksi perilaku keuangan"""
+
     Gaji: float = Field(..., description="Gaji bulanan", example=5000000.0)
-    Tabungan_Lama: float = Field(..., alias="Tabungan Lama", description="Tabungan lama", example=10000000.0)
+    Tabungan_Lama: float = Field(
+        ..., alias="Tabungan Lama", description="Tabungan lama", example=10000000.0
+    )
     Investasi: float = Field(..., description="Nilai investasi", example=2000000.0)
-    Pemasukan_Lainnya: float = Field(..., alias="Pemasukan Lainnya", description="Pemasukan dari sumber lain", example=1000000.0)
-    Bahan_Pokok: float = Field(..., alias="Bahan Pokok", description="Pengeluaran bahan pokok", example=1500000.0)
-    Protein_Gizi: float = Field(..., alias="Protein & Gizi Tambahan", description="Pengeluaran protein dan gizi", example=500000.0)
-    Tempat_Tinggal: float = Field(..., alias="Tempat Tinggal", description="Biaya tempat tinggal", example=2000000.0)
+    Pemasukan_Lainnya: float = Field(
+        ...,
+        alias="Pemasukan Lainnya",
+        description="Pemasukan dari sumber lain",
+        example=1000000.0,
+    )
+    Bahan_Pokok: float = Field(
+        ...,
+        alias="Bahan Pokok",
+        description="Pengeluaran bahan pokok",
+        example=1500000.0,
+    )
+    Protein_Gizi: float = Field(
+        ...,
+        alias="Protein & Gizi Tambahan",
+        description="Pengeluaran protein dan gizi",
+        example=500000.0,
+    )
+    Tempat_Tinggal: float = Field(
+        ...,
+        alias="Tempat Tinggal",
+        description="Biaya tempat tinggal",
+        example=2000000.0,
+    )
     Sandang: float = Field(..., description="Pengeluaran sandang", example=300000.0)
-    Konsumsi_Praktis: float = Field(..., alias="Konsumsi Praktis", description="Konsumsi praktis", example=800000.0)
-    Barang_Jasa_Sekunder: float = Field(..., alias="Barang & Jasa Sekunder", description="Pengeluaran barang dan jasa sekunder", example=400000.0)
-    Pengeluaran_Tidak_Esensial: float = Field(..., alias="Pengeluaran Tidak Esensial", description="Pengeluaran tidak esensial", example=200000.0)
+    Konsumsi_Praktis: float = Field(
+        ..., alias="Konsumsi Praktis", description="Konsumsi praktis", example=800000.0
+    )
+    Barang_Jasa_Sekunder: float = Field(
+        ...,
+        alias="Barang & Jasa Sekunder",
+        description="Pengeluaran barang dan jasa sekunder",
+        example=400000.0,
+    )
+    Pengeluaran_Tidak_Esensial: float = Field(
+        ...,
+        alias="Pengeluaran Tidak Esensial",
+        description="Pengeluaran tidak esensial",
+        example=200000.0,
+    )
     Pajak: float = Field(..., description="Pembayaran pajak", example=250000.0)
     Asuransi: float = Field(..., description="Premi asuransi", example=300000.0)
-    Sosial_Budaya: float = Field(..., alias="Sosial & Budaya", description="Pengeluaran sosial dan budaya", example=150000.0)
-    Tabungan_Investasi: float = Field(..., alias="Tabungan / Investasi", description="Tabungan atau investasi baru", example=500000.0)
+    Sosial_Budaya: float = Field(
+        ...,
+        alias="Sosial & Budaya",
+        description="Pengeluaran sosial dan budaya",
+        example=150000.0,
+    )
+    Tabungan_Investasi: float = Field(
+        ...,
+        alias="Tabungan / Investasi",
+        description="Tabungan atau investasi baru",
+        example=500000.0,
+    )
 
     class Config:
         allow_population_by_field_name = True
 
+
 class PredictionResponse(BaseModel):
     """Model response untuk hasil prediksi"""
+
     prediction: str = Field(..., description="Hasil prediksi perilaku keuangan")
-    probabilities: Dict[str, float] = Field(..., description="Probabilitas untuk setiap kelas")
+    probabilities: Dict[str, float] = Field(
+        ..., description="Probabilitas untuk setiap kelas"
+    )
+
 
 json_key_map = {
     "Gaji": "Gaji",
@@ -78,43 +138,47 @@ json_key_map = {
     "Pajak": "Pajak",
     "Asuransi": "Asuransi",
     "Sosial_Budaya": "Sosial & Budaya",
-    "Tabungan_Investasi": "Tabungan / Investasi"
+    "Tabungan_Investasi": "Tabungan / Investasi",
 }
+
 
 @app.get("/")
 async def root():
     """Endpoint root untuk health check"""
     return {"message": "Financial Behavior Prediction API is running"}
 
+
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
     return {"status": "healthy", "model_loaded": model is not None}
 
+
 @app.post("/predict", response_model=PredictionResponse)
 async def predict_financial_behavior(input_data: FinanceInput):
     """
     Prediksi perilaku keuangan berdasarkan input data keuangan
-    
+
     - **input_data**: Data keuangan yang akan diprediksi
     - **return**: Hasil prediksi dan probabilitas untuk setiap kelas
     """
     try:
-        # Convert pydantic model to dict untuk kemudahan akses
         request_data = input_data.dict(by_alias=True)
-        
+
         input_values = []
         missing_fields = []
-        
+
         for feature_name_internal in feature_names:
             json_field_name = json_key_map.get(feature_name_internal)
             if json_field_name is None:
-                logger.error(f"Internal configuration error for field: {feature_name_internal}")
-                raise HTTPException(
-                    status_code=500, 
-                    detail=f"Internal configuration error for field: {feature_name_internal}"
+                logger.error(
+                    f"Internal configuration error for field: {feature_name_internal}"
                 )
-            
+                raise HTTPException(
+                    status_code=500,
+                    detail=f"Internal configuration error for field: {feature_name_internal}",
+                )
+
             if json_field_name not in request_data:
                 missing_fields.append(json_field_name)
             else:
@@ -122,27 +186,22 @@ async def predict_financial_behavior(input_data: FinanceInput):
                     input_values.append(float(request_data[json_field_name]))
                 except (ValueError, TypeError):
                     raise HTTPException(
-                        status_code=400, 
-                        detail=f"Field '{json_field_name}' must be a number."
+                        status_code=400,
+                        detail=f"Field '{json_field_name}' must be a number.",
                     )
-        
+
         if missing_fields:
             raise HTTPException(
-                status_code=400, 
-                detail=f"Missing fields in input: {missing_fields}"
+                status_code=400, detail=f"Missing fields in input: {missing_fields}"
             )
 
-        # Prepare data untuk prediksi
         input_data_np = np.array([input_values])
-        
-        # Scale input data
+
         input_scaled = scaler.transform(input_data_np)
-        
-        # Make prediction
+
         probs = model.predict(input_scaled)
         predicted_class_index = np.argmax(probs, axis=1)[0]
 
-        # Decode predicted class
         try:
             label = label_encoder.inverse_transform([predicted_class_index])[0]
         except IndexError:
@@ -151,27 +210,21 @@ async def predict_financial_behavior(input_data: FinanceInput):
             logger.error(f"Label encoder error: {e_le}")
             label = f"Error_Decoding_Class_Index_{predicted_class_index}"
 
-        # Prepare probabilities dictionary
         class_labels = label_encoder.classes_
         probabilities_dict = {
-            str(class_labels[i]): float(probs[0][i])
-            for i in range(len(class_labels))
+            str(class_labels[i]): float(probs[0][i]) for i in range(len(class_labels))
         }
 
-        return PredictionResponse(
-            prediction=label,
-            probabilities=probabilities_dict
-        )
-        
+        return PredictionResponse(prediction=label, probabilities=probabilities_dict)
+
     except HTTPException:
-        # Re-raise HTTPException as is
         raise
     except Exception as e:
         logger.error(f"Prediction error: {str(e)}")
         raise HTTPException(
-            status_code=500, 
-            detail=f"An internal server error occurred: {str(e)}"
+            status_code=500, detail=f"An internal server error occurred: {str(e)}"
         )
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=5000, reload=True)
