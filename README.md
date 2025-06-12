@@ -83,7 +83,7 @@ Sebuah *REST API* berbasis `FastAPI` yang memprediksi perilaku keuangan mengguna
 1.  **Gandakan repositori (*Clone the repository*)**
     ```bash
     git clone https://github.com/dompet-juara/ml-deploy.git
-    cd financial-behavior-prediction-api
+    cd ml-deploy
     ```
 
 2.  **Buat lingkungan virtual (*Create virtual environment*)**
