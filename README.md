@@ -1,105 +1,135 @@
-# Financial Behavior Prediction API
+# API Prediksi Perilaku Keuangan 💸🧠
 
-A FastAPI-based REST API that predicts financial behavior using machine learning. This API analyzes various financial metrics to classify and predict spending patterns and financial behaviors.
+[![Versi Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
+[![Framework](https://img.shields.io/badge/Framework-FastAPI-009688.svg)](https://fastapi.tiangolo.com/)
+[![ML Library](https://img.shields.io/badge/ML%20Library-TensorFlow%20%26%20Keras-FF6F00.svg)](https://www.tensorflow.org/)
+[![Deployment](https://img.shields.io/badge/Deployment-Docker-blue.svg)](https://www.docker.com/)
+[![Lisensi: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/dompet-juara/ml-deploy/blob/main/LICENSE) <!-- Ganti dengan path LICENSE yang benar jika berbeda -->
 
-## Features
+Sebuah *REST API* berbasis `FastAPI` yang memprediksi perilaku keuangan menggunakan *machine learning*. *API* ini menganalisis berbagai metrik keuangan untuk mengklasifikasikan dan memprediksi pola pengeluaran serta perilaku keuangan.
 
-- **Machine Learning Prediction**: Uses TensorFlow/Keras neural network for financial behavior classification
-- **RESTful API**: Clean and well-documented API endpoints
-- **Data Validation**: Robust input validation using Pydantic models
-- **Scalable**: Built with FastAPI for high performance
-- **Dockerized**: Ready for containerized deployment
+## 📖 Daftar Isi
 
-## API Endpoints
+*   [✨ Fitur Utama](#-fitur-utama)
+*   [📍 *API Endpoints*](#-api-endpoints)
+    *   [Pemeriksaan Kesehatan (*Health Check*)](#pemeriksaan-kesehatan-health-check)
+    *   [Prediksi](#prediksi)
+*   [📥 Kolom Input](#-kolom-input)
+*   [⚙️ Pengaturan dan Instalasi](#️-pengaturan-dan-instalasi)
+    *   [Prasyarat](#prasyarat)
+    *   [Pengaturan Lokal](#pengaturan-lokal)
+    *   [Pengaturan *Docker*](#pengaturan-docker)
+*   [🚀 Contoh Penggunaan](#-contoh-penggunaan)
+    *   [Contoh Permintaan (*Request*)](#contoh-permintaan-request)
+    *   [Contoh Respons](#contoh-respons)
+    *   [Contoh Klien *Python*](#contoh-klien-python)
+*   [📚 Dokumentasi *API*](#-dokumentasi-api)
+*   [📄 Persyaratan (*Requirements*)](#-persyaratan-requirements)
+*   [🧠 Pelatihan Model](#-pelatihan-model)
+*   [⚠️ Penanganan Kesalahan (*Error Handling*)](#️-penanganan-kesalahan-error-handling)
+*   [🤝 Berkontribusi](#-berkontribusi)
+*   [📜 Lisensi](#-lisensi)
 
-### Health Check
-- `GET /` - Root endpoint with basic API information
-- `GET /health` - Health check endpoint to verify API and model status
+## ✨ Fitur Utama
 
-### Prediction
-- `POST /predict` - Predict financial behavior based on input data
+*   **Prediksi *Machine Learning***: Menggunakan *Neural Network* `TensorFlow`/`Keras` untuk klasifikasi perilaku keuangan.
+*   ***RESTful API***: *Endpoint API* yang bersih dan terdokumentasi dengan baik.
+*   **Validasi Data**: Validasi input yang tangguh menggunakan model `Pydantic`.
+*   **Skalabilitas Tinggi**: Dibangun dengan `FastAPI` untuk performa tinggi.
+*   ***Dockerized***: Siap untuk *deployment* menggunakan *container*.
 
-## Input Fields
+## 📍 *API Endpoints*
 
-The API accepts the following financial data fields:
+### Pemeriksaan Kesehatan (*Health Check*)
 
-| Field Name | Description | Type | Example |
-|------------|-------------|------|---------|
-| `Gaji` | Monthly salary | float | 5000000.0 |
-| `Tabungan Lama` | Old savings | float | 10000000.0 |
-| `Investasi` | Investment value | float | 2000000.0 |
-| `Pemasukan Lainnya` | Other income | float | 1000000.0 |
-| `Bahan Pokok` | Basic necessities expenses | float | 1500000.0 |
-| `Protein & Gizi Tambahan` | Protein and nutrition expenses | float | 500000.0 |
-| `Tempat Tinggal` | Housing costs | float | 2000000.0 |
-| `Sandang` | Clothing expenses | float | 300000.0 |
-| `Konsumsi Praktis` | Practical consumption | float | 800000.0 |
-| `Barang & Jasa Sekunder` | Secondary goods and services | float | 400000.0 |
-| `Pengeluaran Tidak Esensial` | Non-essential expenses | float | 200000.0 |
-| `Pajak` | Tax payments | float | 250000.0 |
-| `Asuransi` | Insurance premiums | float | 300000.0 |
-| `Sosial & Budaya` | Social and cultural expenses | float | 150000.0 |
-| `Tabungan / Investasi` | New savings/investments | float | 500000.0 |
+*   `GET /` - *Root endpoint* dengan informasi dasar *API*.
+*   `GET /health` - *Endpoint* pemeriksaan kesehatan untuk memverifikasi status *API* dan model.
 
-## Installation
+### Prediksi
 
-### Prerequisites
+*   `POST /predict` - Memprediksi perilaku keuangan berdasarkan data input.
 
-- Python 3.9+
-- pip
-- Docker (optional)
+## 📥 Kolom Input
 
-### Local Setup
+*API* menerima kolom data keuangan berikut:
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/dompet-juara/ml-deploy.git
-   cd financial-behavior-prediction-api
-   ```
+| Nama Kolom                | Deskripsi                               | Tipe  | Contoh     |
+| :------------------------ | :-------------------------------------- | :---- | :--------- |
+| `Gaji`                    | Gaji bulanan                            | float | 5000000.0  |
+| `Tabungan Lama`           | Tabungan lama                           | float | 10000000.0 |
+| `Investasi`               | Nilai investasi                         | float | 2000000.0  |
+| `Pemasukan Lainnya`       | Pemasukan lainnya                       | float | 1000000.0  |
+| `Bahan Pokok`             | Pengeluaran kebutuhan pokok             | float | 1500000.0  |
+| `Protein & Gizi Tambahan` | Pengeluaran protein dan nutrisi         | float | 500000.0   |
+| `Tempat Tinggal`          | Biaya tempat tinggal                    | float | 2000000.0  |
+| `Sandang`                 | Pengeluaran pakaian                     | float | 300000.0   |
+| `Konsumsi Praktis`        | Konsumsi praktis                        | float | 800000.0   |
+| `Barang & Jasa Sekunder`  | Barang dan jasa sekunder                | float | 400000.0   |
+| `Pengeluaran Tidak Esensial`| Pengeluaran tidak esensial            | float | 200000.0   |
+| `Pajak`                   | Pembayaran pajak                        | float | 250000.0   |
+| `Asuransi`                | Premi asuransi                          | float | 300000.0   |
+| `Sosial & Budaya`         | Pengeluaran sosial dan budaya           | float | 150000.0   |
+| `Tabungan / Investasi`    | Tabungan/investasi baru                 | float | 500000.0   |
 
-2. **Create virtual environment**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+## ⚙️ Pengaturan dan Instalasi
 
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+### Prasyarat
 
-4. **Prepare model files**
-   
-   Ensure you have the following files in the `model/` directory:
-   - `best_model.h5` - Trained TensorFlow/Keras model
-   - `scaler.pkl` - Fitted StandardScaler or similar preprocessor
-   - `label_encoder.pkl` - Fitted LabelEncoder for target classes
+*   `Python` 3.9+
+*   `pip`
+*   `Docker`
 
-5. **Run the application**
-   ```bash
-   python main.py
-   ```
+### Pengaturan Lokal
 
-   Or using uvicorn directly:
-   ```bash
-   uvicorn main:app --host 0.0.0.0 --port 5000 --reload
-   ```
+1.  **Gandakan repositori (*Clone the repository*)**
+    ```bash
+    git clone https://github.com/dompet-juara/ml-deploy.git
+    cd financial-behavior-prediction-api
+    ```
 
-### Docker Setup
+2.  **Buat lingkungan virtual (*Create virtual environment*)**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # Di Windows: venv\Scripts\activate
+    ```
 
-1. **Build the Docker image**
-   ```bash
-   docker build -t financial-prediction-api .
-   ```
+3.  **Instal dependensi (*Install dependencies*)**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-2. **Run the container**
-   ```bash
-   docker run -p 5000:5000 -e PORT=5000 financial-prediction-api
-   ```
+4.  **Persiapkan file model (*Prepare model files*)**
 
-## Usage Examples
+    Pastikan Anda memiliki file-file berikut di direktori `model/`:
+    *   `best_model.h5` - Model `TensorFlow`/`Keras` yang telah dilatih.
+    *   `scaler.pkl` - *Preprocessor* `StandardScaler` atau sejenisnya yang telah di-*fit*.
+    *   `label_encoder.pkl` - `LabelEncoder` yang telah di-*fit* untuk kelas target.
 
-### Example Request
+5.  **Jalankan aplikasi (*Run the application*)**
+    ```bash
+    python main.py
+    ```
+
+    Atau menggunakan `uvicorn` secara langsung:
+    ```bash
+    uvicorn main:app --host 0.0.0.0 --port 5000 --reload
+    ```
+
+### Pengaturan *Docker*
+
+1.  **Bangun *image Docker* (*Build the Docker image*)**
+    ```bash
+    docker build -t financial-prediction-api .
+    ```
+
+2.  **Jalankan *container* (*Run the container*)**
+    ```bash
+    docker run -p 5000:5000 -e PORT=5000 financial-prediction-api
+    ```
+
+## 🚀 Contoh Penggunaan
+
+### Contoh Permintaan (*Request*)
 
 ```bash
 curl -X POST "http://localhost:5000/predict" \
@@ -123,7 +153,7 @@ curl -X POST "http://localhost:5000/predict" \
 }'
 ```
 
-### Example Response
+### Contoh Respons
 
 ```json
 {
@@ -135,8 +165,9 @@ curl -X POST "http://localhost:5000/predict" \
   }
 }
 ```
+*(Catatan: Nama kelas seperti "Conservative_Saver" adalah output dari model dan tidak diterjemahkan)*
 
-### Python Client Example
+### Contoh Klien *Python*
 
 ```python
 import requests
@@ -146,26 +177,37 @@ data = {
     "Gaji": 5000000.0,
     "Tabungan Lama": 10000000.0,
     "Investasi": 2000000.0,
-    # ... other fields
+    "Pemasukan Lainnya": 1000000.0,
+    "Bahan Pokok": 1500000.0,
+    "Protein & Gizi Tambahan": 500000.0,
+    "Tempat Tinggal": 2000000.0,
+    "Sandang": 300000.0,
+    "Konsumsi Praktis": 800000.0,
+    "Barang & Jasa Sekunder": 400000.0,
+    "Pengeluaran Tidak Esensial": 200000.0,
+    "Pajak": 250000.0,
+    "Asuransi": 300000.0,
+    "Sosial & Budaya": 150000.0,
+    "Tabungan / Investasi": 500000.0
 }
 
 response = requests.post(url, json=data)
 result = response.json()
-print(f"Prediction: {result['prediction']}")
-print(f"Probabilities: {result['probabilities']}")
+print(f"Prediksi: {result['prediction']}")
+print(f"Probabilitas: {result['probabilities']}")
 ```
 
-## API Documentation
+## 📚 Dokumentasi *API*
 
-Once the application is running, you can access:
+Setelah aplikasi berjalan, Anda dapat mengakses:
 
-- **Interactive API Documentation**: http://localhost:5000/docs
-- **ReDoc Documentation**: http://localhost:5000/redoc
-- **OpenAPI Schema**: http://localhost:5000/openapi.json
+*   **Dokumentasi *API* Interaktif**: <http://localhost:5000/docs>
+*   **Dokumentasi ReDoc**: <http://localhost:5000/redoc>
+*   ***OpenAPI Schema***: <http://localhost:5000/openapi.json>
 
-## Requirements
+## 📄 Persyaratan (*Requirements*)
 
-Create a `requirements.txt` file with the following dependencies:
+Buat file `requirements.txt` dengan dependensi berikut:
 
 ```
 fastapi==0.104.1
@@ -177,32 +219,32 @@ pydantic==2.5.0
 python-multipart==0.0.6
 ```
 
-## Model Training
+## 🧠 Pelatihan Model
 
-This API expects pre-trained models. Ensure your model training pipeline:
+*API* ini mengharapkan model yang sudah dilatih sebelumnya. Pastikan *pipeline* pelatihan model Anda:
 
-1. Uses the same feature order as defined in `feature_names`
-2. Saves the model in `.h5` format
-3. Saves the scaler and label encoder as pickle files
-4. Uses compatible TensorFlow/Keras versions
+1.  Menggunakan urutan fitur yang sama seperti yang didefinisikan dalam `feature_names` (jika ada variabel global atau konfigurasi untuk ini).
+2.  Menyimpan model dalam format `.h5`.
+3.  Menyimpan *scaler* dan *label encoder* sebagai file `pickle`.
+4.  Menggunakan versi `TensorFlow`/`Keras` yang kompatibel.
 
-## Error Handling
+## ⚠️ Penanganan Kesalahan (*Error Handling*)
 
-The API includes comprehensive error handling for:
+*API* menyertakan penanganan kesalahan yang komprehensif untuk:
 
-- Missing or invalid input fields
-- Model loading errors
-- Prediction errors
-- Data validation errors
+*   Kolom input yang hilang atau tidak valid.
+*   Kesalahan saat memuat model.
+*   Kesalahan prediksi.
+*   Kesalahan validasi data.
 
-## Contributing
+## 🤝 Berkontribusi
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1.  *Fork* repositori ini.
+2.  Buat *feature branch* (`git checkout -b feature/fitur-luar-biasa`).
+3.  *Commit* perubahan Anda (`git commit -m 'Menambahkan fitur luar biasa'`).
+4.  *Push* ke *branch* (`git push origin feature/fitur-luar-biasa`).
+5.  Buka *Pull Request*.
 
-## License
+## 📜 Lisensi
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Proyek ini dilisensikan di bawah Lisensi MIT - lihat file [LICENSE](LICENSE) untuk detailnya. <!-- Pastikan path ke file LICENSE benar -->
