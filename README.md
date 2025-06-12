@@ -23,7 +23,6 @@ Sebuah *REST API* berbasis `FastAPI` yang memprediksi perilaku keuangan mengguna
     *   [Contoh Permintaan (*Request*)](#contoh-permintaan-request)
     *   [Contoh Respons](#contoh-respons)
     *   [Contoh Klien *Python*](#contoh-klien-python)
-*   [📚 Dokumentasi *API*](#-dokumentasi-api)
 *   [📄 Persyaratan (*Requirements*)](#-persyaratan-requirements)
 *   [🧠 Pelatihan Model](#-pelatihan-model)
 *   [⚠️ Penanganan Kesalahan (*Error Handling*)](#️-penanganan-kesalahan-error-handling)
@@ -196,14 +195,6 @@ result = response.json()
 print(f"Prediksi: {result['prediction']}")
 print(f"Probabilitas: {result['probabilities']}")
 ```
-
-## 📚 Dokumentasi *API*
-
-Setelah aplikasi berjalan, Anda dapat mengakses:
-
-*   **Dokumentasi *API* Interaktif**: <http://localhost:5000/docs>
-*   **Dokumentasi ReDoc**: <http://localhost:5000/redoc>
-*   ***OpenAPI Schema***: <http://localhost:5000/openapi.json>
 
 ## 📄 Persyaratan (*Requirements*)
 
