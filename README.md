@@ -4,7 +4,7 @@
 [![Framework](https://img.shields.io/badge/Framework-FastAPI-009688.svg)](https://fastapi.tiangolo.com/)
 [![ML Library](https://img.shields.io/badge/ML%20Library-TensorFlow%20%26%20Keras-FF6F00.svg)](https://www.tensorflow.org/)
 [![Deployment](https://img.shields.io/badge/Deployment-Docker-blue.svg)](https://www.docker.com/)
-[![Lisensi: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/dompet-juara/ml-deploy/blob/main/LICENSE) <!-- Ganti dengan path LICENSE yang benar jika berbeda -->
+[![Lisensi: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/dompet-juara/ml-deploy/blob/main/LICENSE) 
 
 Sebuah *REST API* berbasis `FastAPI` yang memprediksi perilaku keuangan menggunakan *machine learning*. *API* ini menganalisis berbagai metrik keuangan untuk mengklasifikasikan dan memprediksi pola pengeluaran serta perilaku keuangan.
 
@@ -156,15 +156,14 @@ curl -X POST "http://localhost:5000/predict" \
 
 ```json
 {
-  "prediction": "Conservative_Saver",
+  "prediction": "boros",
   "probabilities": {
-    "Conservative_Saver": 0.75,
-    "Moderate_Spender": 0.20,
-    "High_Risk_Investor": 0.05
+    "boros": 0.75,
+    "normal": 0.20,
+    "hemat": 0.05
   }
 }
 ```
-*(Catatan: Nama kelas seperti "Conservative_Saver" adalah output dari model dan tidak diterjemahkan)*
 
 ### Contoh Klien *Python*
 
@@ -213,7 +212,7 @@ scikit-learn==1.5.0
 
 *API* ini mengharapkan model yang sudah dilatih sebelumnya. Pastikan *pipeline* pelatihan model Anda:
 
-1.  Menggunakan urutan fitur yang sama seperti yang didefinisikan dalam `feature_names` (jika ada variabel global atau konfigurasi untuk ini).
+1.  Menggunakan urutan fitur yang sama seperti yang didefinisikan dalam `feature_names`.
 2.  Menyimpan model dalam format `.h5`.
 3.  Menyimpan *scaler* dan *label encoder* sebagai file `pickle`.
 4.  Menggunakan versi `TensorFlow`/`Keras` yang kompatibel.
@@ -237,4 +236,4 @@ scikit-learn==1.5.0
 
 ## 📜 Lisensi
 
-Proyek ini dilisensikan di bawah Lisensi MIT - lihat file [LICENSE](LICENSE) untuk detailnya. <!-- Pastikan path ke file LICENSE benar -->
+Proyek ini dilisensikan di bawah Lisensi MIT - lihat file [LICENSE](LICENSE) untuk detailnya.
