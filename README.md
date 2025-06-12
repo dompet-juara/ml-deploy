@@ -198,16 +198,15 @@ print(f"Probabilitas: {result['probabilities']}")
 
 ## 📄 Persyaratan (*Requirements*)
 
-Buat file `requirements.txt` dengan dependensi berikut:
+Pustaka yang digunakan terdapat dalam file `requirements.txt` dengan dependensi berikut:
 
 ```
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-tensorflow==2.15.0
-numpy==1.24.3
-scikit-learn==1.3.2
-pydantic==2.5.0
-python-multipart==0.0.6
+fastapi==0.115.12
+numpy==1.24.4
+pydantic==2.11.5
+tensorflow-cpu==2.10.1
+uvicorn==0.34.3
+scikit-learn==1.5.0
 ```
 
 ## 🧠 Pelatihan Model
